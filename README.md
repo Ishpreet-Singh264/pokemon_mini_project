@@ -43,6 +43,7 @@ Open a new terminal window (keep the server running in the first one).
 
 - **TCP Sockets:** We used TCP sockets to ensure reliable communication between the client and the server.
 - **Shared Header:** We created a `common.h` file to define the Pokemon structure and port settings in one place. This ensures both the Client and Server use the exact same data format.
+- **Port 8080:** Although the assignment specified port 80, we changed the listening port to 8080. This ensures that the server runs without needing administrator privileges (no sudo required).
 - **Separation of Logic:**
   - The Server handles all File I/O for the database (pokemon.csv).
   - The Client handles the User Interface and saving the results to the local machine.
