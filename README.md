@@ -1,22 +1,22 @@
-# Pokemon Server - Stage 1
+# Pokemon Server - Stage 2
 
 ## Description
 
-This is the first stage of the Pokemon Query project. It is a single program that reads a CSV file, allows the user to search for Pokemon by type, and saves the results to a new file.
+This is the second stage of the project. It updates the search function to run in a background thread. This allows the user to continue using the menu while the program searches through the file.
 
 ## How to Compile
 
 Run the following command in your terminal:
 
 ```
-gcc -o stage1 pokemon_server-stage-1.c
+gcc -o stage2 pokemon_server-stage-1.c
 ```
 
 ## How to Run
 
 1. Start the program:
    ```
-   ./stage1
+   ./stage2
    ```
 2. When prompted for the filename, enter:
    ```
@@ -25,6 +25,6 @@ gcc -o stage1 pokemon_server-stage-1.c
 
 ## Design Choices
 
-- **Linked List:** We used a linked list to store the search results in memory so we can save them later without needing to know the exact number of results beforehand. (Not part of the course though)
-- **File I/O:** The program uses standard C functions (fopen, fgets) to read the CSV file line-by-line.
-- **Case Insensitivity:** We included logic to ignore capitalization so "fire" and "Fire" both work.
+- **Pthreads:** I used the pthread library to create a separate thread for searching. This keeps the main menu responsive.
+- **Mutex Locks:** I added a Mutex lock to protect the shared list. This prevents the program from crashing if the search thread tries to write data at the same time the main thread tries to read it.
+- **Safe Saving:** The save function checks if a search is currently running and waits for it to finish before writing to the disk.
