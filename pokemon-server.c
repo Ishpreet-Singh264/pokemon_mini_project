@@ -28,12 +28,18 @@ void addToList(int id, char *name, char *type) {
     newPoke->id = id;
     strcpy(newPoke->name, name);
     strcpy(newPoke->type1, type);
+
+    // Lock the mutex so no one else changes the list right now 
+    pthread_mutex_lock(&lock); 
     
     // Point this new Pokemon to whatever used to be first
     newPoke->next = head;
     
     // Update the head to point to this new Pokemon
     head = newPoke;
+
+    // Unlock the mutex so others can use the list
+    pthread_mutex_unlock(&lock); 
 }
 
 // This function reads the file and looks for matches
