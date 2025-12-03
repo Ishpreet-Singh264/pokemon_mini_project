@@ -9,7 +9,7 @@ This is the first stage of the Pokemon Query project. It is a single program tha
 Run the following command in your terminal:
 
 ```
-gcc -o stage1 pokemon_server-stage-1.c
+gcc -o stage1 pokemon_server.c
 ```
 
 ## How to Run
