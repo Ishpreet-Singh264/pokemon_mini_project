@@ -57,22 +57,38 @@ void requestQuery(char *type) {
 
     int valread;
     int count = 0;
+
     // Keep reading data until the server stops sending
     while ((valread = read(sock, buffer, BUFFER_SIZE)) > 0) {
         buffer[valread] = '\0';
-        
-        // Check if we received the "DONE" signal
-        if (strstr(buffer, "DONE")) break;
-        
-        // Save the received line
-        char *line = strdup(buffer);
-        saveResult(line);
-        count++;
+
+        // Fix for client reading the stream as a single line
+        // NEW LOGIC: Pointer to walk through the buffer
+        char *start = buffer;
+        char *newline;
+
+        // Loop to find every newline character in this chunk of data
+        while ((newline = strchr(start, '\n')) != NULL) {
+            *newline = '\0'; // Turn the newline into a string terminator
+
+            // Check for the stop signal
+            if (strstr(start, "DONE")) goto finished;
+
+            // Make a safe copy of the line
+            char *temp = strdup(start);
+            // Save this specific line
+            saveResult(temp);
+            free(temp); // Clean up the copy
+            count++;
+
+            // Move the pointer to the next line
+            start = newline + 1;
+        }
     }
-    
+
+    finished: // Label to jump to when "DONE" is found
     if (count > 0) printf(">> Received %d new records.\n", count);
     else printf(">> No records found for type '%s'.\n", type);
-    
     // Close the connection
     close(sock);
 }
