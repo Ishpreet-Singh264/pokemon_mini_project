@@ -1,0 +1,7 @@
+*.o
+stage1
+stage2
+server-stage-3
+client-stage-3
+.DS_Store
+.vscode/
