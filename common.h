@@ -2,7 +2,7 @@
 #define COMMON_H
 
 
-#define PORT 8080
+#define PORT 57744 //50000 + last 4 digits of mu student ID
 #define BUFFER_SIZE 2048
 #define MAX_LEN 100
 
