@@ -13,6 +13,9 @@ struct Pokemon {
     struct Pokemon *next;   // A pointer to the next Pokemon in our list
 };
 
+// A lock to protect the list when multiple threads access it 
+pthread_mutex_t lock; 
+
 // This variable points to the start of our list in memory
 struct Pokemon *head = NULL;
 
