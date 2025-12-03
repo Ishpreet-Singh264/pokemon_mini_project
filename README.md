@@ -18,7 +18,6 @@ make
 ## How to Run
 
 **Step 1: Start the Server**
-(Note: Sudo is no longer required as we moved to Port 8080).
 
 1. Run:
 
