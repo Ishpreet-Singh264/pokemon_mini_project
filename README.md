@@ -1,30 +1,49 @@
-# Pokemon Server - Stage 2
+# Pokemon Client-Server Project (Final Stage)
 
 ## Description
 
-This is the second stage of the project. It updates the search function to run in a background thread. This allows the user to continue using the menu while the program searches through the file.
+This is the final stage of the project. The application has been split into two separate programs:
 
-## How to Compile
+1. **The Server (PPS):** Listens on Port 8080, reads the CSV file, and processes searches.
+2. **The Client (PQC):** Connects to the server, sends user queries, and saves results to disk.
 
-Run the following command in your terminal:
+## How to Compile (Makefile)
+
+We have provided a Makefile to build everything at once. Run:
 
 ```
-gcc -o stage2 pokemon_server-stage-1.c
+make
 ```
 
 ## How to Run
 
-1. Start the program:
-   ```
-   ./stage2
-   ```
-2. When prompted for the filename, enter:
-   ```
-   pokemon.csv
-   ```
+**Step 1: Start the Server**
+(Note: Sudo is no longer required as we moved to Port 8080).
+
+1. Run:
+
+```
+./pokemon-server
+```
+
+2. Enter `pokemon.csv` when prompted.
+3. To stop the server, press `Ctrl+C`.
+
+**Step 2: Start the Client**
+Open a new terminal window (keep the server running in the first one).
+
+1. Run:
+
+```
+./pokemon-client
+```
+
+2. Use the menu to Search and Save.
 
 ## Design Choices
 
-- **Pthreads:** I used the pthread library to create a separate thread for searching. This keeps the main menu responsive.
-- **Mutex Locks:** I added a Mutex lock to protect the shared list. This prevents the program from crashing if the search thread tries to write data at the same time the main thread tries to read it.
-- **Safe Saving:** The save function checks if a search is currently running and waits for it to finish before writing to the disk.
+- **TCP Sockets:** We used TCP sockets to ensure reliable communication between the client and the server.
+- **Shared Header:** We created a `common.h` file to define the Pokemon structure and port settings in one place. This ensures both the Client and Server use the exact same data format.
+- **Separation of Logic:**
+  - The Server handles all File I/O for the database (pokemon.csv).
+  - The Client handles the User Interface and saving the results to the local machine.
