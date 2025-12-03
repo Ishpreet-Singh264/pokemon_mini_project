@@ -4,7 +4,7 @@
 
 This is the final stage of the project. The application has been split into two separate programs:
 
-1. **The Server (PPS):** Listens on Port 8080, reads the CSV file, and processes searches.
+1. **The Server (PPS):** Listens on Port 57744, reads the CSV file, and processes searches.
 2. **The Client (PQC):** Connects to the server, sends user queries, and saves results to disk.
 
 ## How to Compile (Makefile)
